@@ -33,6 +33,8 @@
   },
   "bundle": {
     "active": true,
+    "publisher": "Mikael Melo",
+    "copyright": "Copyright © 2026 Mikael Melo",
     "targets": [
       "nsis"
     ],

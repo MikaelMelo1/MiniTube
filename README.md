@@ -1,37 +1,53 @@
-# MiniTube
+<div align="center">
+  <img src="src-tauri/icons/icon.png" width="96" height="96" alt="Ícone do MiniTube" />
+  <h1>MiniTube</h1>
+  <p><strong>Seu vídeo do YouTube em uma janela pequena, flutuante e sempre à mão.</strong></p>
+  <p>
+    <img src="https://img.shields.io/badge/Windows-11-0078D4?logo=windows11&logoColor=white" alt="Windows 11" />
+    <img src="https://img.shields.io/badge/Tauri-2-FFC131?logo=tauri&logoColor=black" alt="Tauri 2" />
+    <img src="https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white" alt="React 19" />
+    <img src="https://img.shields.io/badge/versão-0.1.0-536DF3" alt="Versão 0.1.0" />
+  </p>
+  <p>Criado por <a href="https://github.com/MikaelMelo1">Mikael Melo</a></p>
+</div>
 
-MiniTube é um pequeno aplicativo de área de trabalho para Windows que abre uma bolinha flutuante e reproduz vídeos incorporáveis do YouTube usando o player oficial. Usa Tauri 2, Rust, React, TypeScript, Vite e WebView2.
+O MiniTube é um aplicativo para Windows que mantém um vídeo incorporável do YouTube por cima das outras janelas. Recolha o player em uma bolinha, continue trabalhando e volte ao vídeo quando quiser.
 
-## Pré-requisitos
+## O que você pode fazer
+
+- Abrir a busca com `Ctrl + Alt + Y` e procurar vídeos pelo nome.
+- Colar um link do YouTube para reproduzir sem configurar uma chave de API.
+- Ver título, canal, miniatura, duração e data de publicação nos resultados, quando disponíveis.
+- Recolher o player em uma bolinha sem interromper o áudio; use Pause para parar o vídeo.
+- Voltar à lista de resultados e continuar a pesquisa de onde parou.
+- Ajustar tamanho e opacidade da bolinha, tema e opção de iniciar com o Windows.
+- Controlar reprodução, volume e velocidade, favoritar vídeos e abrir o vídeo no navegador.
+
+O MiniTube aparece somente quando você clica na bolinha. Arraste-a para mudar de posição. A janela permanece sempre no topo e o ícone da bandeja oferece acesso à busca, às configurações e à opção de sair.
+
+Atalhos: `Ctrl + Alt + Y` abre a pesquisa rápida; `Escape` recolhe o player sem interromper o áudio.
+
+## Baixar
+
+O repositório ainda não tem uma versão de instalação publicada na página de Releases. Por enquanto, compile o aplicativo no Windows seguindo as instruções abaixo.
+
+## Executar no Windows
+
+### Requisitos
 
 - Windows 11 com Microsoft Edge WebView2 Evergreen.
 - Node.js 20.19+ ou 22.12+.
-- Rust com o alvo MSVC.
-- Microsoft C++ Build Tools.
+- Rust com o alvo MSVC e Microsoft C++ Build Tools.
 - NSIS para gerar o instalador.
 
-## Executar
+### Modo de desenvolvimento
 
 ```powershell
 npm ci
 npm run tauri dev
 ```
 
-A bolinha abre somente com clique; passar o mouse não troca o modo. Pressione e segure a própria bolinha para arrastá-la. Ela fica sempre no topo, mesmo que o player seja desafixado. Clique nela para abrir o vídeo atual ou a pesquisa. `Ctrl + Alt + Y` abre uma barra de pesquisa transparente junto ao cursor; a lista aparece abaixo depois de pesquisar. A janela permanece aberta até você recolher ou fechá-la.
-
-Cole uma URL segura HTTPS do YouTube/Shorts para assistir sem chave de API. Para pesquisar por texto, crie uma chave da YouTube Data API v3 no Google Cloud Console e salve-a em Configurações. A lista mostra miniatura, título, canal e duração. A chave fica no Gerenciador de Credenciais do Windows; o aplicativo não a grava no repositório nem em texto puro. Chaves usadas em aplicativos distribuídos continuam suscetíveis a uso indevido: restrinja API, cota e projeto.
-
-Selecionar um resultado abre uma janela compacta com o vídeo. Os botões discretos sobre o vídeo permitem pesquisar outro, recolher à bolinha ou abrir os controles completos. A janela expandida tem play/pause, avanço e retorno de 10 segundos, volume, velocidade permitida pelo vídeo, favoritos e abrir no navegador. Recolher reduz a janela à bolinha sem desmontar o iframe, então o áudio continua; use Pause para interromper a reprodução. O histórico mantém até 40 vídeos; favoritos e preferências ficam no armazenamento local do WebView2.
-
-## Preferências e bandeja
-
-A data de publicação aparece nos resultados da API e nos detalhes do vídeo quando disponível. A seta **Voltar aos resultados** restaura a consulta e a posição da lista, permitindo escolher outro vídeo sem pesquisar novamente.
-
-No ícone da bandeja é possível mostrar/ocultar a bolinha, abrir pesquisa e configurações, alternar início com Windows e sair. Fechar a janela recolhe o MiniTube para a bandeja. A opção de inicialização do Windows fica em Configurações. O app inicia em uma janela circular pequena e a opção “Iniciar na bandeja” a esconde após iniciar.
-
-Atalhos: `Ctrl + Alt + Y` para pesquisa global e `Escape` para recolher sem interromper o áudio. Sempre no topo, tema, opacidade e tamanho da bolinha podem ser configurados.
-
-## Build e instalador
+### Criar o instalador
 
 ```powershell
 npm ci
@@ -40,26 +56,26 @@ npm run build
 npm run tauri build
 ```
 
-O instalador NSIS é gerado em `src-tauri/target/release/bundle/nsis/`. O executável fica em `src-tauri/target/release/minitube.exe`.
+O instalador NSIS aparece em `src-tauri/target/release/bundle/nsis/`; o aplicativo fica em `src-tauri/target/release/minitube.exe`.
 
-Para atualizar, escolha **Sair do MiniTube** no menu da bandeja, execute o instalador e abra o app novamente. A instância já aberta mantém a interface da versão anterior até ser encerrada.
+## Pesquisa no YouTube
 
-## Estrutura
+Para buscar pelo nome do vídeo, configure uma chave da **YouTube Data API v3** nas Configurações do MiniTube. A chave é guardada no Gerenciador de Credenciais do Windows. Restrinja o projeto e a cota da chave no Google Cloud Console.
 
-- `src/components`: bolinha, busca, resultados, player, controles e configurações.
-- `src/services/youtube.ts`: validação de URLs, pesquisa oficial e mensagens de erro.
-- `src/stores`: preferências locais.
-- `src-tauri/src`: tray, atalho, instância única, proteção da chave no Credential Manager, identidade do WebView2 e janelas.
-- `src/hooks`: visibilidade dos controles do mini-player.
+Sem uma chave, você ainda pode colar uma URL HTTPS de vídeo ou Shorts do YouTube. O MiniTube não usa cookies nem a sessão da sua conta no navegador.
 
-## Limitações conhecidas
+## Privacidade e limitações
 
-O player só funciona para vídeos que permitem incorporação. O YouTube pode bloquear vídeos privados, restritos ou incompatíveis; nesses casos use Abrir no YouTube. Pesquisa textual depende de chave e cota da API oficial. Reprodução, atalho global, bandeja, instalação e autostart devem ser verificados no Windows de destino antes de considerar o app pronto para uso diário. Os testes automatizados usam um player simulado; não comprovam reprodução real, consumo de recursos ou funcionamento em múltiplos monitores.
+O histórico, os favoritos e as preferências ficam no armazenamento local do aplicativo. A pesquisa e o player conectam-se aos serviços do YouTube e do Google. Nenhuma chave de API é incluída no código.
 
-O mini-player abre em 300 × 202 px e pode ser redimensionado pelo canto até 202 × 202 px, preservando a viewport mínima de 200 × 200 px. Os botões do MiniTube aparecem ao passar o mouse e somem ao sair; os controles internos do YouTube são gerenciados pelo próprio player. Títulos, datas e campo de busca usam fontes maiores e fundos de alto contraste.
+O YouTube só permite reproduzir vídeos que aceitam incorporação. Conteúdo privado, restrito ou incompatível pode falhar; nesse caso, abra o vídeo no YouTube. A chave de API é pessoal: não a publique em issues, capturas de tela ou logs.
 
-## Privacidade
+## Tecnologias
 
-Nenhuma chave de API é distribuída com o código. Preferências, histórico e favoritos são armazenados localmente; a chave configurada fica no Gerenciador de Credenciais do Windows. O player, as miniaturas e a pesquisa fazem conexões com serviços do YouTube/Google. O projeto não importa cookies nem a sessão do seu navegador e não é afiliado ao YouTube ou ao Google.
+Tauri 2, Rust, React 19, TypeScript, Vite, WebView2, YouTube IFrame Player API e YouTube Data API v3.
 
-Arquivos de ambiente, documentos internos, configurações locais de agentes e artefatos compilados são ignorados pelo Git. Não inclua credenciais em issues, capturas ou logs.
+## Autoria
+
+MiniTube foi criado e é mantido por **Mikael Melo** — [@MikaelMelo1](https://github.com/MikaelMelo1). O nome também consta nos metadados do instalador e nas Configurações do aplicativo.
+
+O MiniTube é um projeto independente e não é afiliado, patrocinado ou endossado pelo YouTube ou pelo Google.

@@ -17,5 +17,6 @@ export function SettingsPanel({prefs,onChange,onError,onClear,error}:{prefs:Pref
  <p className="muted">Protegida pelo Gerenciador de Credenciais do Windows. Sem chave, cole uma URL.</p>
  <button onClick={async()=>{try{await invoke('save_api_key',{key});setKey('');setSaved('Chave salva com proteção do Windows.')}catch(e){onError(String(e))}}}>Salvar chave</button><p role="status">{saved}</p>
  <button onClick={onClear}>Limpar histórico local</button>{error&&<p className="inline-error" role="alert">{error}</p>}<p className="muted">Ctrl + Alt + Y · pesquisa rápida<br/>Escape · recolher sem interromper o áudio</p>
+ <p className="muted">MiniTube · desenvolvido por Mikael Melo</p>
  </section>
 }

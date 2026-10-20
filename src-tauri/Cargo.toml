@@ -2,7 +2,7 @@
 name = "minitube"
 version = "0.1.0"
 description = "MiniTube — YouTube flutuante para Windows"
-authors = ["MiniTube"]
+authors = ["Mikael Melo"]
 edition = "2024"
 
 [lib]
